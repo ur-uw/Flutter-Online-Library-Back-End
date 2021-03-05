@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Database\Factories\UserFactory;
+use App\Models\Book;
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class BooksTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->defaultUser()->create();
-        User::factory()->count(5)->create();
+        Book::factory()->defaultBook()->create();
+        Book::factory()->count(100)->create();
     }
 }

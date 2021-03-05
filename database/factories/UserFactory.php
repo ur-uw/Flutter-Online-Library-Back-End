@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use PhpParser\Node\Expr\Array_;
 
 class UserFactory extends Factory
 {
@@ -32,18 +31,22 @@ class UserFactory extends Factory
         ];
     }
 
-    public function default(): array
+    public function defaultUser(): UserFactory
     {
-        return [
-            'name' => 'Mohammed Fadhil',
-            'email' => 'mfanha8030@gmail.com',
-        ];
+       return $this->state(function (){
+            return [
+                'name' => 'Mohammed Fadhil',
+                'email' => 'test@test.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('testtest'), // testtest
+            ];
+        });
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function unverified(): Factory
     {
