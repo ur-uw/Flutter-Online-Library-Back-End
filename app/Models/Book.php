@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereReleaseDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property string $isbn
+ * @method static \Illuminate\Database\Eloquent\Builder|Book whereIsbn($value)
  */
 class Book extends Model
 {
