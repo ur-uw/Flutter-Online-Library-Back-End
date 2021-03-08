@@ -20,9 +20,10 @@ class BookFactory extends Factory {
      */
     public function definition(): array
     {
+        $rand=random_int(0 , 1000);
         return [
             'author' => $this->faker->name,
-            'cover_url' => $this->faker->imageUrl(),
+            'cover_url' => "http://covers.openlibrary.org/b/id/${rand}-M.jpg",
             'book_name' => $this->faker->sentence(3),
             'release_date' => $this->faker->date(),
             'isbn' => $this->faker->isbn10,
