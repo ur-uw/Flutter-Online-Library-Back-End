@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.31.0.
+ * Generated for Laravel 8.30.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -9815,7 +9815,7 @@
                         return $instance->getAcceptableContentTypes();
         }
                     /**
-         * Returns true if the request is an XMLHttpRequest.
+         * Returns true if the request is a XMLHttpRequest.
          * 
          * It works if your JavaScript library sets an X-Requested-With HTTP header.
          * It is known to work with common JavaScript frameworks:
@@ -14852,107 +14852,6 @@
      
 }
 
-    namespace Laratrust { 
-            /**
-     * 
-     *
-     */ 
-        class LaratrustFacade {
-                    /**
-         * Checks if the current user has a role by its name.
-         *
-         * @param string $role Role name.
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasRole($role, $team = null, $requireAll = false)
-        {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->hasRole($role, $team, $requireAll);
-        }
-                    /**
-         * Check if the current user has a permission by its name.
-         *
-         * @param string $permission Permission string.
-         * @return bool 
-         * @static 
-         */ 
-        public static function isAbleTo($permission, $team = null, $requireAll = false)
-        {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->isAbleTo($permission, $team, $requireAll);
-        }
-                    /**
-         * Check if the current user has a role or permission by its name.
-         *
-         * @param array|string $roles The role(s) needed.
-         * @param array|string $permissions The permission(s) needed.
-         * @param array $options The Options.
-         * @return bool 
-         * @static 
-         */ 
-        public static function ability($roles, $permissions, $team = null, $options = [])
-        {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->ability($roles, $permissions, $team, $options);
-        }
-                    /**
-         * Checks if the user owns the thing.
-         *
-         * @param Object $thing
-         * @param string $foreignKeyName
-         * @return boolean 
-         * @static 
-         */ 
-        public static function owns($thing, $foreignKeyName = null)
-        {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->owns($thing, $foreignKeyName);
-        }
-                    /**
-         * Checks if the user has some role and if he owns the thing.
-         *
-         * @param string|array $role
-         * @param Object $thing
-         * @param array $options
-         * @return boolean 
-         * @static 
-         */ 
-        public static function hasRoleAndOwns($role, $thing, $options = [])
-        {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->hasRoleAndOwns($role, $thing, $options);
-        }
-                    /**
-         * Checks if the user can do something and if he owns the thing.
-         *
-         * @param string|array $permission
-         * @param Object $thing
-         * @param array $options
-         * @return boolean 
-         * @static 
-         */ 
-        public static function isAbleToAndOwns($permission, $thing, $options = [])
-        {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->isAbleToAndOwns($permission, $thing, $options);
-        }
-                    /**
-         * Get the currently authenticated user or null.
-         *
-         * @return \Illuminate\Auth\UserInterface|null 
-         * @static 
-         */ 
-        public static function user()
-        {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->user();
-        }
-         
-    }
-     
-}
-
     namespace Illuminate\Http { 
             /**
      * 
@@ -18166,7 +18065,6 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
-            class Laratrust extends \Laratrust\LaratrustFacade {}
      
 }
 

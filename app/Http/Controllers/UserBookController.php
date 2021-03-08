@@ -9,19 +9,6 @@ use Illuminate\Http\Response;
 
 class UserBookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return JsonResponse
-     */
-    public function getAllBooks(): JsonResponse
-    {
-        $books=Book::latest()->get();
-        return response()->json([
-            'status_code'=>200,
-            'books'=>$books,
-        ]);
-    }
 
     /**
      * Display the specified resource.
@@ -32,10 +19,7 @@ class UserBookController extends Controller
     {
         $user=$request->user();
         $userBooks=$user->books;
-        return  response()->json([
-            'status_code'=>200,
-            'user_books'=>$userBooks
-        ]);
+        return  response()->json($userBooks);
     }
 
 }

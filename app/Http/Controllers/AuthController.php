@@ -79,12 +79,12 @@ class AuthController extends Controller {
         try {
             $request->user()->tokens()->delete();
             return response()->json([
-                'sucess' => true,
+                'success' => true,
                 'message' => 'Tokens Deleted!',
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'sucess' => false,
+                'success' => false,
                 'message' => $e->getMessage(),
                 'exception_class' => get_class($e),
             ]);

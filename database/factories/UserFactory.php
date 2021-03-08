@@ -25,6 +25,8 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
+            'date_of_birth' => $this->faker->dateTimeBetween('-50 years', 'now'),
+            'profile_image' => $this->faker->imageUrl(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -33,11 +35,12 @@ class UserFactory extends Factory
 
     public function defaultUser(): UserFactory
     {
-       return $this->state(function (){
+        return $this->state(function () {
             return [
                 'name' => 'Mohammed Fadhil',
                 'email' => 'test@test.com',
                 'email_verified_at' => now(),
+                'date_of_birth' => '2000-11-03',
                 'password' => bcrypt('testtest'), // testtest
             ];
         });
