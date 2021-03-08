@@ -12,10 +12,11 @@ class DatabaseSeeder extends Seeder {
      */
     public function run(): void {
         $this->call([
+            LaratrustSeeder::class,
             UsersTableSeeder::class,
             BooksTableSeeder::class,
             BookUserTableSeeder::class,
-            LaratrustSeeder::class,
+
         ]);
 
     }

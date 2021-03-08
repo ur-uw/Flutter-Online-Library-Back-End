@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * App\Models\User
@@ -49,10 +48,9 @@ use Laratrust\Traits\LaratrustUserTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePermissionIs($permission = '', $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleIs($role = '', $team = null, $boolean = 'and')
  */
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use LaratrustUserTrait;
-    use HasApiTokens,HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -84,8 +82,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function books(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
+    public function books(): \Illuminate\Database\Eloquent\Relations\BelongsToMany {
         return $this->belongsToMany(Book::class)->as('books')->withTimestamps();
     }
 }

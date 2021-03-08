@@ -2,90 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SignInRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-
-class AuthController extends Controller
-{
-    public function register(Request $request): \Illuminate\Http\JsonResponse
-    {
+class AuthController extends Controller {
+    public function register(Request $request): \Illuminate\Http\JsonResponse{
         $rules = [
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return response()->json([
-                'status_code'=>400,
-                'errors' => $validator->errors()
+                'success' => false,
+                'message' => 'Invalid inputs',
+                'errors' => $validator->errors(),
             ]);
         }
 
         try {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
+            $user = User::create($validator->validated());
+            $user->attachRole('user');
             $token = $user->createToken('authToken')->plainTextToken;
             return response()->json([
-                'status_code' => 200,
-                'message' => 'user created',
+                'success' => true,
+                'message' => 'User created successfuly',
                 'token' => $token,
                 'user' => $user,
             ]);
         } catch (\Exception $exception) {
             return response()->json([
-                'status_code' => 400,
+                'success' => false,
                 'message' => $exception->getMessage(),
             ]);
         }
 
     }
 
-    public function login(Request $request): \Illuminate\Http\JsonResponse
-    {
+    public function login(Request $request): \Illuminate\Http\JsonResponse{
         $rules = [
-
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ];
         $validator = Validator::make($request->all(), $rules);
-        if ($validator->failed()) {
+        if ($validator->fails()) {
             return response()->json([
-                'status_code' => 400,
-                'message' => 'bad request'
+                'success' => false,
+                'message' => 'Invalid inputs',
+                'errors' => $validator->errors(),
             ]);
         }
+
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'status_code' => 500,
-                'message' => 'invalid credentials'
+                'success' => false,
+                'message' => 'Invalid credentials',
             ]);
         }
         $user = User::where('email', $request->email)->first();
         $tokenResult = $user->createToken('authToken')->plainTextToken;
         return response()->json([
-            'status_code' => 200,
+            'success' => true,
+            'message' => 'Token created successfuly',
             'token' => $tokenResult,
             'user' => $user,
         ]);
     }
 
-    public function logOut(Request $request): \Illuminate\Http\JsonResponse
-    {
-        $request->user()->tokens()->delete();
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'tokens deleted'
-        ]);
+    public function logOut(Request $request): \Illuminate\Http\JsonResponse {
+        try {
+            $request->user()->tokens()->delete();
+            return response()->json([
+                'sucess' => true,
+                'message' => 'Tokens Deleted!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'sucess' => false,
+                'message' => $e->getMessage(),
+                'exception_class' => get_class($e),
+            ]);
+        }
     }
 }
