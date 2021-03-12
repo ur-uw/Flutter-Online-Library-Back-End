@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//BroadCasting
+Route::get('books-broadcast', function(){
+    broadcast(new \App\Events\BooksEvent());
+});

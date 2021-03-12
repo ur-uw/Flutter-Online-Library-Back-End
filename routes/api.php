@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\BooksEvent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserBookController;
@@ -17,4 +18,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
     Route::get('/logout', [AuthController::class, 'logOut']);
     Route::get('/user/books', [UserBookController::class, 'getUserBooks']);
+});
+
+//BroadCasting
+Route::group(['prefix' => 'broadcast'], function () {
+    Route::get('/books', function () {
+        broadcast(new BooksEvent());
+    });
 });
