@@ -17,9 +17,16 @@ class UserBookController extends Controller
      */
     public function getUserBooks(Request $request): JsonResponse
     {
-        $user=$request->user();
-        $userBooks=$user->books;
-        return  response()->json($userBooks);
+        $user = $request->user();
+        $userBooks = $user->books;
+        return response()->json($userBooks);
+    }
+
+    public function getUserFavourites(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $favouriteBooks = $user->favourites;
+        return response()->json($favouriteBooks);
     }
 
 }

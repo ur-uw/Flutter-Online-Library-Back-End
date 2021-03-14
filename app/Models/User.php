@@ -47,8 +47,15 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDoesntHaveRole()
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePermissionIs($permission = '', $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleIs($role = '', $team = null, $boolean = 'and')
+ * @property string|null $date_of_birth
+ * @property string|null $profile_image
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Book[] $favourites
+ * @property-read int|null $favourites_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDateOfBirth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProfileImage($value)
  */
-class User extends Authenticatable {
+class User extends Authenticatable
+{
     use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -82,7 +89,17 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
-    public function books(): \Illuminate\Database\Eloquent\Relations\BelongsToMany {
-        return $this->belongsToMany(Book::class)->as('books')->withTimestamps();
+    public function books(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Book::class)
+            ->as('books')
+            ->withTimestamps();
+    }
+
+    public function favourites(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Book::class, 'favourites', 'user_id', 'book_id')
+            ->as('favourites')
+            ->withTimestamps();
     }
 }

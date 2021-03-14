@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Models\Book
@@ -30,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereUpdatedAt($value)
  * @mixin Eloquent
  * @property string $isbn
+ * @property mixed $favorites
+ * @property mixed $is_favoured
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereIsbn($value)
  */
 class Book extends Model
@@ -42,9 +45,28 @@ class Book extends Model
         'released_at',
         'cover_url',
     ];
+    protected $appends=array('is_favoured');
+
+    public function getIsFavouredAttribute(): bool
+    {
+        return $this->isFavoured();
+    }
 
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class)->as('users')->withTimestamps();
+    }
+
+
+    /**
+     * Determine whether a post has been marked as favorite by a user.
+     *
+     * @return boolean
+     */
+    public function isFavoured(): bool
+    {
+        return (bool)BookFavourite::where('user_id', Auth::id())
+            ->where('book_id', $this->id)
+            ->first();
     }
 }
